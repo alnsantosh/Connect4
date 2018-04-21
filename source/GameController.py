@@ -9,32 +9,37 @@ import random
 import import_ipynb
 from Board import Board
 from RandomPlayer import RandomPlayer
-
+from RLPlayer import RLPlayer
 
 # In[12]:
 
 
 class Game():
-    def __init__(self, player1, player2):
+    def __init__(self, player1, player2, play=True):
+        
         self.winner=None
         self.completed=False
         self.win_direction=None
         self.win_point=None
         self.p=[None,None]
         self.board=Board()
-        if random.random()>0.5:
-            self.p[0]=player1
-            self.p[0].move=1
-            self.p[1]=player2
-            self.p[1].move=2
-        else:
-            self.p[0]=player2
-            self.p[0].move=1
-            self.p[1]=player1
-            self.p[1].move=2
+        player1.move=1
+        player2.move=2
+        self.p[0]=player1
+        self.p[1]=player2
         print("Welcome to Connect4")
         print("Player 1 (X) is " + self.p[0].name)
         print("Player 2 (O) is " + self.p[1].name)
+
+
+    def reset():
+        self.winner=None
+        self.completed=False
+        self.win_direction=None
+        self.win_point=None
+        self.p=[None,None]
+        self.board=Board()
+        
         
     
     def verticalCheck(self,r,c):
@@ -118,6 +123,51 @@ class Game():
         print(self.board.board)
         print(self.win_direction)
         print(self.win_point)
+
+    def learn_game(self, episodes=1000):
+        agent = RLPlayer(168,42)
+        self.p[0]=agent
+        self.p[1]=RandomPlayer()
+        # Iterate the game
+        for e in range(episodes):
+            # reset state in the beginning of each game
+            self.board = Board() 
+            while not self.completed:
+                # turn this on if you want to render
+                # env.render()
+                # Decide action
+                curr_move=self.board.board.flatten()
+                action = agent.playMove(state,self.board.board.flatten(),self.board.nextPossibleMove())
+                # Advance the game to the next frame based on the action.
+                # Reward is 1 for every frame the pole survived
+                if not self.board.checkValidMove(r,c):
+                    print("Invalid Move")
+                    print("Game ends")
+                    return
+                self.board.makeMove(r,c,move+1)
+                self.findWinner()
+
+                next_state =self.board.board.flatten()
+                if self.completed:
+                    if self.winner==1:
+                        reward=100
+                        done=1
+                    elif self.winner==2:
+                        reward=-100
+                        done=1
+
+                # Remember the previous state, action, reward, and done
+                agent.remember(curr_move, action, reward, next_state, done)
+                # make next_state the new current state for the next frame.
+                # done becomes True when the game ends
+                # ex) The agent drops the pole
+                if done:
+                    # print the score and break out of the loop
+                    print("episode: {}/{}, score: {}"
+                          .format(e, episodes, time_t))
+                    break
+            # train the agent with the experience of the episode
+            agent.replay(32)
     
 
 

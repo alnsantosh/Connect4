@@ -14,9 +14,8 @@ from Player import Player
 
 
 class RandomPlayer(Player):
-    def __init__(self):
-        super(RandomPlayer,self).__init__()
-        self.name="Random Player"
+    def __init__(self,move,name="Random Player"):
+        super(RandomPlayer,self).__init__(name)
     
     def playMove(self,board,possibleMoves):
         return possibleMoves[random.randint(0,len(possibleMoves)-1)]

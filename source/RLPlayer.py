@@ -1,8 +1,15 @@
-class DQNAgent:
+import numpy
+import random
+import import_ipynb
+from Player import Player
+
+
+class RLPlayer(Player):
     
 
     # For self play we have to pass model
-    def __init__(self, state_size, action_size):  
+    def __init__(self, state_size, action_size,name="RL Player"):  
+        super(RandomPlayer,self).__init__(name)
         self.state_size = state_size
         self.action_size = action_size
 
@@ -32,7 +39,7 @@ class DQNAgent:
     def remember(self, state, action, reward, next_state, done):
         #Maybe optimize
         self.memory.append((state, action, reward, next_state, done))
-    def act(self, state):
+    def playmove(self, state,):
         if np.random.rand() <= self.epsilon:
             return random.randrange(self.action_size)
         act_values = self.model.predict(state)
@@ -43,8 +50,7 @@ class DQNAgent:
         for state, action, reward, next_state, done in minibatch:
             target = reward
             if not done:
-              target = reward + self.gamma * \
-                       np.amax(self.model.predict(next_state)[0])
+              target = reward + self.gamma * np.amax(self.model.predict(next_state)[0])
             target_f = self.model.predict(state)
             target_f[0][action] = target
             self.model.fit(state, target_f, epochs=1, verbose=0)
