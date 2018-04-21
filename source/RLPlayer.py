@@ -1,15 +1,19 @@
 from collections import deque
-import random
 from keras import Sequential
 from keras.layers import Dense
 from keras.optimizers import Adam
 import numpy as np
+import random
+import import_ipynb
+from Player import Player
 
 
-class RLPlayer:
-    def __init__(self,state_size,action_size):
-        self.name = "RL_player"
-        # will be 168
+class RLPlayer(Player):
+    
+
+    # For self play we have to pass model
+    def __init__(self, state_size, action_size,name="RL Player"):  
+        super(Player,self).__init__(name)
         self.state_size = state_size
         # will be 42
         self.action_size = action_size
@@ -32,7 +36,10 @@ class RLPlayer:
                       optimizer=Adam(lr=self.learning_rate))
         return model
 
-    def act(self, state):
+    def remember(self, state, action, reward, next_state, done):
+        #Maybe optimize
+        self.memory.append((state, action, reward, next_state, done))
+    def playmove(self, state,possibleMoves):
         if np.random.rand() <= self.epsilon:
             return random.randrange(self.action_size)
         act_values = self.model.predict(state)
@@ -45,16 +52,13 @@ class RLPlayer:
             board[board == -1] = 2
         return board
 
-    def remember(self,state,action,reward,next_state,completed):
-        #needs to be optimized
-        self.memory.append((state, action, reward, next_state, completed))
 
     def replay(self, batch_size):
         mini_batch = random.sample(self.memory, batch_size)
-        for state, action, reward, next_state, completed in mini_batch:
+        for state, action, reward, next_state, done in mini_batch:
             target = reward
-            if not completed:
-                target = reward + self.gamma * np.amax(self.model.predict(next_state)[0])
+            if not done:
+              target = reward + self.gamma * np.amax(self.model.predict(next_state)[0])
             target_f = self.model.predict(state)
             target_f[0][action] = target
             self.model.fit(state, target_f, epochs=1, verbose=0)

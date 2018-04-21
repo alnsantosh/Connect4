@@ -2,8 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="25a4c20d-a108-4e19-8cb8-d53817230f92" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/source/RLPlayer_new.py" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/connect4.iml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/source/temp.py" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/Board.py" afterPath="$PROJECT_DIR$/source/Board.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/GameController.py" afterPath="$PROJECT_DIR$/source/GameController.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/Player.py" afterPath="$PROJECT_DIR$/source/Player.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/RLPlayer.py" afterPath="$PROJECT_DIR$/source/RLPlayer.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/RandomPlayer.py" afterPath="$PROJECT_DIR$/source/RandomPlayer.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -17,8 +27,8 @@
       <file leaf-file-name="RLPlayer.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/source/RLPlayer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="199">
-              <caret line="50" column="0" lean-forward="true" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
+            <state relative-caret-position="177">
+              <caret line="57" column="51" lean-forward="false" selection-start-line="57" selection-start-column="51" selection-end-line="57" selection-end-column="51" />
               <folding>
                 <element signature="e#0#29#0" expanded="true" />
               </folding>
@@ -39,9 +49,11 @@
       <file leaf-file-name="RandomPlayer.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/source/RandomPlayer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="440">
-              <caret line="23" column="0" lean-forward="true" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="418">
+              <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+              <folding>
+                <marker date="1524269212283" expanded="true" signature="289:358" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -50,8 +62,10 @@
         <entry file="file://$PROJECT_DIR$/source/Player.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="440">
-              <caret line="21" column="0" lean-forward="true" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
-              <folding />
+              <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+              <folding>
+                <marker date="1524269212277" expanded="true" signature="199:212" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -61,7 +75,15 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
+              <folding>
+                <marker date="1524269212214" expanded="true" signature="60:647" ph="..." />
+                <marker date="1524269212214" expanded="true" signature="84:177" ph="..." />
+                <marker date="1524269212214" expanded="true" signature="214:280" ph="..." />
+                <marker date="1524269212214" expanded="true" signature="319:354" ph="..." />
+                <marker date="1524269212214" expanded="true" signature="394:539" ph="..." />
+                <marker date="1524269212214" expanded="true" signature="431:524" ph="..." />
+                <marker date="1524269212214" expanded="true" signature="571:647" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -239,7 +261,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="154">
           <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1524269212283" expanded="true" signature="289:358" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -247,7 +271,15 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1524269212214" expanded="true" signature="60:647" ph="..." />
+            <marker date="1524269212214" expanded="true" signature="84:177" ph="..." />
+            <marker date="1524269212214" expanded="true" signature="214:280" ph="..." />
+            <marker date="1524269212214" expanded="true" signature="319:354" ph="..." />
+            <marker date="1524269212214" expanded="true" signature="394:539" ph="..." />
+            <marker date="1524269212214" expanded="true" signature="431:524" ph="..." />
+            <marker date="1524269212214" expanded="true" signature="571:647" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -255,7 +287,15 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1524269212214" expanded="true" signature="60:647" ph="..." />
+            <marker date="1524269212214" expanded="true" signature="84:177" ph="..." />
+            <marker date="1524269212214" expanded="true" signature="214:280" ph="..." />
+            <marker date="1524269212214" expanded="true" signature="319:354" ph="..." />
+            <marker date="1524269212214" expanded="true" signature="394:539" ph="..." />
+            <marker date="1524269212214" expanded="true" signature="431:524" ph="..." />
+            <marker date="1524269212214" expanded="true" signature="571:647" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -269,9 +309,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/source/RandomPlayer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="440">
-          <caret line="23" column="0" lean-forward="true" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="418">
+          <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+          <folding>
+            <marker date="1524269212283" expanded="true" signature="289:358" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -292,8 +334,10 @@
     <entry file="file://$PROJECT_DIR$/source/Player.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="440">
-          <caret line="21" column="0" lean-forward="true" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
-          <folding />
+          <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+          <folding>
+            <marker date="1524269212277" expanded="true" signature="199:212" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -309,16 +353,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="198">
           <caret line="9" column="11" lean-forward="true" selection-start-line="9" selection-start-column="11" selection-end-line="9" selection-end-column="11" />
-          <folding>
-            <element signature="e#0#29#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/source/RLPlayer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="199">
-          <caret line="50" column="0" lean-forward="true" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
+        <state relative-caret-position="177">
+          <caret line="57" column="51" lean-forward="false" selection-start-line="57" selection-start-column="51" selection-end-line="57" selection-end-column="51" />
           <folding>
             <element signature="e#0#29#0" expanded="true" />
           </folding>

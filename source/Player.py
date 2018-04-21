@@ -12,9 +12,9 @@ import random
 
 
 class Player():
-    def __init__(self):
-        self.move=None
-        self.name=None
+    def __init__(self,n):
+        self.move=0
+        self.name=n
     
     def playMove(self,board,possibleMoves):
         pass
