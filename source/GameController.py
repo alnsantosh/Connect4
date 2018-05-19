@@ -6,11 +6,13 @@
 import time
 import numpy as np
 import random
-import import_ipynb
 from Board import Board
 from RandomPlayer import RandomPlayer
 from RLPlayer import RLPlayer
 import RLModel
+import math
+from strategyPlayer import strategyPlayer
+from keras.models import load_model
 
 # In[12]:
 
@@ -28,9 +30,6 @@ class Game():
 		player2.move=2
 		self.p[0]=player1
 		self.p[1]=player2
-		print("Welcome to Connect4")
-		print("Player 1 (X) is " + self.p[0].name)
-		print("Player 2 (O) is " + self.p[1].name)
 
 
 	def reset(self):
@@ -51,7 +50,7 @@ class Game():
 					win=False
 					break
 		if win:
-			self.win_direction='vertical'
+			self.win_direction='v'
 		return win
 	
 	def horizontalCheck(self,r,c):
@@ -63,7 +62,7 @@ class Game():
 					win=False
 					break
 		if win:
-			self.win_direction='horizontal'
+			self.win_direction='h'
 		return win
 	
 	def positiveDiagonalCheck(self,r,c):
@@ -75,7 +74,7 @@ class Game():
 					win=False
 					break
 		if win:
-			self.win_direction='positiveDiagonal'
+			self.win_direction='pD'
 		return win
 	
 	def negativeDiagonalCheck(self,r,c):
@@ -87,7 +86,7 @@ class Game():
 					win=False
 					break
 		if win:
-			self.win_direction='negativeDiagonal'
+			self.win_direction='nD'
 		return win
 
 
@@ -95,93 +94,136 @@ class Game():
 	def findWinner(self):
 		for r in range(6):
 			for c in range(7):
-				if self.board.board[r][c]!=3 and self.board.board[r][c]!=0:
+				if self.board.board[r][c]!=0:
 					win= self.verticalCheck(r,c) or self.horizontalCheck(r,c) or self.positiveDiagonalCheck(r,c) or self.negativeDiagonalCheck(r,c)
 					if win:
-						print("won by " + str(self.board.board[r][c]))
 						self.winner=self.board.board[r][c]
 						self.completed=True
 						self.win_point=(r,c)
 						return
 	
-	def run(self):
+	def run(self,debug=False):
 		move=0
 		while not self.completed and not self.board.checkFilled():
 			flatten_board=self.board.board.flatten()
 			possible=self.board.nextPossibleMove()
-			p=self.p[move].playMove(flatten_board,possible)
-			r=p[0]
-			c=p[1]
-			if not self.board.checkValidMove(r,c):
-				print("Invalid Move")
-				print("Game ends")
-				return
-			self.board.makeMove(r,c,move+1)
-			self.findWinner()
-			if move:
-				move=0
+			if len(self.board.nextPossibleMove())==0:
+					print("draw")
+					self.completed=1
 			else:
-				move=1
-		print(self.winner)
-		print(self.board.board)
-		print(self.win_direction)
-		print(self.win_point)
-
-	def learn_game(self,episodes=1000):
-		# Iterate the game
-		for e in range(episodes):
-			self.reset()
-			move=0
-			time.sleep(1)
-			while not self.completed:
-
-				curr_move=self.board.board.flatten()
-				r1 = self.p[move].playMove(curr_move,self.board.nextPossibleMove())
-				r=r1[0]
-				c=r1[1]
-				if not self.board.checkValidMove(r,c):
+				p=self.p[move].playMove(flatten_board,possible)
+				if not self.board.checkValidMove(p):
 					print("Invalid Move")
 					print("Game ends")
 					return
-				curr_move=self.board.board.flatten()
-				
-				self.board.makeMove(r,c,move+1)
+				self.board.makeMove(p,move+1)
 				self.findWinner()
-
-				next_state =self.board.board.flatten()
-				if self.completed:
-					if self.winner==1:
-						reward=100
-						done=1
-					else:
-						reward=-100
-						done=1
-					self.p[move].remember(curr_move, r * 7 +c, reward, next_state, done)
-				
+				if move:
+					move=0
 				else:
-					reward=0
-					done=0
+					move=1
+				if debug:
+					print(self.board.board)
+					print("")
+					print("")
+					time.sleep(2)
+		if debug:
+			print(self.winner)
+			print(self.board.board)
+			print(self.win_direction)
+			print(self.win_point)
 
-				if done:
-					print("episode: {}/{}, score: {}"
-						  .format(e, episodes, self.winner))
+	def learn_game(self,episodes=5000):
+		# Iterate the game
+		overall=0
+		verwinplot=np.zeros((6,7))
+		horwinplot=np.zeros((6,7))
+		pdwinplot=np.zeros((6,7))
+		ndwinplot=np.zeros((6,7))
+		for e in range(episodes):
+
+			if(e%200==0):
+				x=0
+				for i in range(200):
+					b=Game(self.p[0],self.p[1])
+					b.run()
+					if b.winner==1:
+						x=x+1
+				print("Model won " ,x," games out of 200")
+				overall=overall+x
+				model.save('structured_NN.h5')  # creates a HDF5 file 'my_model.h5'
+
+			self.reset()
+			move=0
+			while not self.completed:
+				curr_move=self.board.board.flatten()
+				if len(self.board.nextPossibleMove())==0:
+					print("draw")
+					self.completed=1
+				else:
+					c = self.p[move].playMove(curr_move,self.board.nextPossibleMove())
+					if not self.board.checkValidMove(c):
+						print("Invalid Move")
+						print("Game ends")
+						break
+					curr_move=self.board.board.flatten()
+				
+					self.board.makeMove(c,move+1)
+					if move==0:
+						self.p[0].remember(curr_move,c)
+				
+					self.findWinner()
+					if self.completed:
+						if self.winner==1:
+							if self.win_direction=='v':
+								verwinplot[self.win_point[0]][self.win_point[1]]+=1
+								self.p[0].remember(curr_move,c)
+								overwinpenalty=1-math.sqrt((verwinplot[self.win_point[0]][self.win_point[1]]/e))
+								self.p[0].replay(1*overwinpenalty )
+
+							if self.win_direction=='h':
+								horwinplot[self.win_point[0]][self.win_point[1]]+=1
+								self.p[0].remember(curr_move,c)
+								self.p[0].replay(1* (1-(horwinplot[self.win_point[0]][self.win_point[1]]/e)))
+
+							if self.win_direction=='nD':
+								ndwinplot[self.win_point[0]][self.win_point[1]]+=1
+								self.p[0].remember(curr_move,c)
+								self.p[0].replay(1* (1-(ndwinplot[self.win_point[0]][self.win_point[1]]/e)))
+
+							if self.win_direction=='pD':
+								pdwinplot[self.win_point[0]][self.win_point[1]]+=1
+								self.p[0].remember(curr_move,c)
+								self.p[0].replay(1* (1-(pdwinplot[self.win_point[0]][self.win_point[1]]/e)))
+						else:
+							self.p[0].remember(curr_move,-1)
+							self.p[0].replay(-1)
+							
+					
+				if self.completed:
 					break
 				else:
 					if move:
 						move=0
 					else:
 						move=1
+			
 
-			self.p[move].replay(32)
-			print("End of game ")
+		print(verwinplot)
+		print(horwinplot)
+		print(pdwinplot)
+		print(ndwinplot)
+		print(overall)
 	
 
 
 # In[14]:
 
+# a=Game(RandomPlayer(1),RandomPlayer(2))
+# a.run()
 
 model=RLModel.get_model()
-a=Game(RLPlayer(168,42,model),RLPlayer(168,42,model))
+a=Game(RLPlayer(168,42,model),strategyPlayer(2))
 a.learn_game()
 #a.run()
 

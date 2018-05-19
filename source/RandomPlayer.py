@@ -18,5 +18,5 @@ class RandomPlayer(Player):
         super(RandomPlayer,self).__init__(name)
     
     def playMove(self,board,possibleMoves):
-        return possibleMoves[random.randint(0,len(possibleMoves)-1)]
+        return possibleMoves[numpy.random.randint(0,len(possibleMoves))]
 
